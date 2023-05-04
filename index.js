@@ -25,7 +25,7 @@ socket.on('new_notification', async (data) => {
   // Create a channel (required for Android)
   const channelId = await notifee.createChannel({
     id: data.userId,
-    name: 'Rekados Push Notification',
+    name: 'Recipe\'s Best Push Notification',
     importance: AndroidImportance.HIGH,
   });
 

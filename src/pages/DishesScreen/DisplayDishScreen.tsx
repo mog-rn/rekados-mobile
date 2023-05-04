@@ -17,15 +17,25 @@ import { Toast } from '../../utils/Toast'
 import { useGetUser, useGetDish } from '../../lib/ReactQuery'
 
 const DisplayDishScreen = () => {
-  
+
   const route: any = useRoute()
 
   const { slug } = route.params
+  const [playing, setPlaying] = React.useState(false)
 
   const [modalVisible, setModalVisible] = React.useState(false)
 
   const { data: user, isLoading, isError, error }: any = useGetUser()
   const { data: dish, isLoading: dishIsLoading, isError: dishIsError, error: dishError }: any = useGetDish(slug)
+
+  
+  const extractVideoId = (url: string) => {
+    const regex = /^(?:https?:\/\/)?(?:www\.)?(?:m\.)?(?:youtube\.com|youtu\.be)\/(?:watch\?v=|embed\/|v\/)?([\w-]{11})(?:\S+)?$/;
+    const match = url.match(regex);
+    return match?.[1]; // use optional chaining to access the first captured group
+  };
+  
+  
 
   if (isLoading) return <MainSplashScreen />
   if (isError) return <ErrorScreen error={error.response?.data?.message} />
@@ -33,6 +43,7 @@ const DisplayDishScreen = () => {
 
   const onStateChange = React.useCallback((state: any) => {
     if (state === 'ended') {
+      setPlaying(false)
       Toast('Video has finished playing.')
     }
   }, [])
@@ -51,22 +62,22 @@ const DisplayDishScreen = () => {
           <React.Fragment>
             <View style={tw`relative flex flex-col items-start justify-start w-full px-5 py-5`}>
               <View style={tw`flex flex-col items-center w-full`}>
-                <Text style={[tw`ml-1 text-3xl text-neutral-600 dark:text-neutral-200`, fonts.fontPoppinsBlack]}>{ dish.title }</Text>
-                <Text style={[tw`mt-1 px-2 py-0.5 rounded-full text-sm text-white bg-[#f2b900]`, fonts.fontPoppinsLight]}>{ dish.category }</Text>
+                <Text style={[tw`ml-1 text-3xl text-neutral-600 dark:text-neutral-200`, fonts.fontPoppinsBlack]}>{dish.title}</Text>
+                <Text style={[tw`mt-1 px-2 py-0.5 rounded-full text-sm text-white bg-[#f2b900]`, fonts.fontPoppinsLight]}>{dish.category}</Text>
                 <View style={tw`w-full overflow-hidden rounded-xl my-3`}>
                   <Image
                     style={tw`flex w-full h-[12rem] bg-neutral-100 dark:bg-[#383838]`}
                     resizeMode="cover"
                     source={{
-                      uri: `${ dish.image }`
+                      uri: `${dish.image}`
                     }}
                   />
                 </View>
               </View>
               <View style={tw`flex-row items-center justify-between w-full px-1`}>
                 <View style={tw`mt-3`}>
-                  <Text style={[tw`text-lg text-neutral-600 dark:text-neutral-200`, fonts.fontPoppinsBold]}>{ dish.location }</Text>
-                  <Text style={[tw`text-sm text-neutral-500 dark:text-neutral-400`, fonts.fontPoppins]}>by { dish.author.name }</Text>
+                  <Text style={[tw`text-lg text-neutral-600 dark:text-neutral-200`, fonts.fontPoppinsBold]}>{dish.location}</Text>
+                  <Text style={[tw`text-sm text-neutral-500 dark:text-neutral-400`, fonts.fontPoppins]}>by {dish.author.name}</Text>
                 </View>
                 <View style={tw`flex-row items-center`}>
                   <View style={tw`flex-row items-center mx-1.5`}>
@@ -120,7 +131,7 @@ const DisplayDishScreen = () => {
                 </View>
               </View>
               <View style={tw`flex flex-col items-center w-full pb-5`}>
-                <Text style={[tw`mt-3 text-base text-left text-neutral-600 dark:text-neutral-400`, fonts.fontPoppins]}>{ dish.description }</Text>
+                <Text style={[tw`mt-3 text-base text-left text-neutral-600 dark:text-neutral-400`, fonts.fontPoppins]}>{dish.description}</Text>
               </View>
               <View style={tw`flex flex-col items-start w-full overflow-hidden`}>
                 <Text style={[tw`text-xl text-center text-neutral-500 dark:text-neutral-200 uppercase`, fonts.fontPoppinsBold]}>Ingredients</Text>
@@ -131,16 +142,18 @@ const DisplayDishScreen = () => {
                       size="small"
                       color="#f2b900"
                     />
-                    <Text style={[tw`w-[15rem] ml-2 text-base text-neutral-600 dark:text-neutral-400`, fonts.fontPoppins]}>{ ingredient.name }</Text>
+                    <Text style={[tw`w-[15rem] ml-2 text-base text-neutral-600 dark:text-neutral-400`, fonts.fontPoppins]}>{ingredient.name}</Text>
                   </View>
                 ))}
               </View>
               <View style={tw`flex flex-col items-start w-full mt-5 overflow-hidden`}>
                 <Text style={[tw`text-xl text-center text-neutral-500 dark:text-neutral-200 uppercase`, fonts.fontPoppinsBold]}>Procedures</Text>
+
                 {dish.procedures.map((procedure: { details: string }, i: number) => (
                   <View key={i} style={tw`flex flex-row items-start mt-2`}>
+
                     <Text style={[tw`text-base text-[#f2b900]`, fonts.fontPoppinsBold]}>Step {i + 1}: </Text>
-                    <Text style={[tw`w-[15rem] ml-1 text-base text-neutral-600 dark:text-neutral-400`, fonts.fontPoppins]}>{ procedure.details }</Text>
+                    <Text style={[tw`w-[15rem] ml-1 text-base text-neutral-600 dark:text-neutral-400`, fonts.fontPoppins]}>{procedure.details}</Text>
                   </View>
                 ))}
               </View>
@@ -152,8 +165,9 @@ const DisplayDishScreen = () => {
                       <ActivityIndicator size="large" color="#f2b900" />
                     </View>
                     <YoutubePlayer
-                      height={180}
-                      videoId={dish.youtube}
+                      height={200}
+                      playing={playing}
+                      videoId={extractVideoId(`${dish.youtube}`)}
                       onChangeState={onStateChange}
                     />
                   </View>
