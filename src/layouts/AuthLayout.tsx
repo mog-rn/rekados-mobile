@@ -22,7 +22,7 @@ const AuthLayout: React.FC<TypedProps> = ({ children }) => {
               <Image
                 style={tw`w-[15rem] h-[3rem]`}
                 resizeMode="contain"
-                source={require('../assets/images/rekados-official.png')}
+                source={require('../assets/images/recipe-official.png')}
               />
             </View>
             <Text style={[tw`text-base text-[#33333] dark:text-neutral-400 mt-1 mr-1`, fonts.fontPoppinsLight]}>Your daily recipe at a glance</Text>

@@ -39,7 +39,7 @@ const ProfileImageUpload: React.FC<TypedProps> = ({ userId, photo, setPhoto, mod
         size: image.fileSize
       })
 
-      await fetch(`https://api.imgbb.com/1/upload?key=${IMGBB_API_SECRET}`, {
+      await fetch(`https://api.imgbb.com/1/upload?key=4c90929c97daae684b2aeab4bfce9216`, {
         method: 'POST',
         body: data
       })

@@ -87,62 +87,6 @@ const Menu: React.FC<MenuTypes> = ({ user, modalVisible, setModalVisible }) => {
             <TouchableOpacity
               style={tw`flex flex-row items-center w-full px-5 py-3 border-t border-neutral-300 dark:border-neutral-700`}
               activeOpacity={0.6}
-              onPress={() => {
-                useNavigate('PrivacyPolicyScreen')
-              }}
-            >
-              <MaterialIcon
-                name="shield-check"
-                size="small"
-                color="#7c7c7c"
-              />
-              <Text style={[tw`ml-3 text-base text-neutral-500 dark:text-neutral-400`, fonts.fontPoppins]}>Privacy Policy</Text>
-            </TouchableOpacity>
-            <TouchableOpacity
-              style={tw`flex flex-row items-center w-full px-5 py-3 border-t border-neutral-300 dark:border-neutral-700`}
-              activeOpacity={0.6}
-              onPress={() => {
-                useNavigate('AboutScreen')
-              }}
-            >
-              <MaterialIcon
-                name="question"
-                size="small"
-                color="#7c7c7c"
-              />
-              <Text style={[tw`ml-3 text-base text-neutral-500 dark:text-neutral-400`, fonts.fontPoppins]}>About</Text>
-            </TouchableOpacity>
-            <TouchableOpacity
-              style={tw`flex flex-row items-center w-full px-5 py-3 border-t border-neutral-300 dark:border-neutral-700`}
-              activeOpacity={0.6}
-              onPress={() => Linking.canOpenURL('https://rekados-landing-page.vercel.app/').then(() => {
-                Linking.openURL('https://rekados-landing-page.vercel.app/')
-              })}
-            >
-              <MaterialIcon
-                name="globe"
-                size="small"
-                color="#7c7c7c"
-              />
-              <Text style={[tw`ml-3 text-base text-neutral-500 dark:text-neutral-400`, fonts.fontPoppins]}>Website</Text>
-            </TouchableOpacity>
-            {/* <TouchableOpacity
-              style={tw`flex flex-row items-center w-full px-5 py-3 border-t border-neutral-300 dark:border-neutral-700`}
-              activeOpacity={0.6}
-              onPress={() => {
-                console.log('Rate this App')
-              }}
-            >
-              <MaterialIcon
-                name="star"
-                size="small"
-                color="#7c7c7c"
-              />
-              <Text style={[tw`ml-3 text-base text-neutral-500 dark:text-neutral-400`, fonts.fontPoppins]}>Rate this app</Text>
-            </TouchableOpacity> */}
-            <TouchableOpacity
-              style={tw`flex flex-row items-center w-full px-5 py-3 border-t border-neutral-300 dark:border-neutral-700`}
-              activeOpacity={0.6}
               onPress={onLogout}
             >
               <MaterialIcon

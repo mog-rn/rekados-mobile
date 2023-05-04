@@ -2,7 +2,7 @@ import axios from 'axios'
 import { API_URL } from '@env'
 
 const api = axios.create({
-  baseURL: `${API_URL}`,
+  baseURL: `https://recipes-best.onrender.com`,
   withCredentials: true,
   timeout: 3000,
   headers: {

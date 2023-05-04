@@ -15,7 +15,7 @@ const CreateDishScreen = () => {
   if (isLoading) return <MainSplashScreen />
   if (isError) return <ErrorScreen error={error.response?.data?.message} />
 
-  // Nig click sa users ug back button muback ra jd sija padong sa HomeScreen
+
   const handleBackToHomeScreen = () => {
     useNavigate('HomeScreen')
   }

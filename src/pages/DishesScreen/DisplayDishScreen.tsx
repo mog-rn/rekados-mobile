@@ -168,7 +168,7 @@ const DisplayDishScreen = () => {
             />
             <View style={tw`flex flex-row items-center justify-center w-full py-3`}>
               <Text style={[tw`text-xs text-neutral-400`, fonts.fontPoppinsLight]}>
-                &copy; 2022 Rekados. All rights reserved.
+                &copy; 2023 Recipe's_Best. All rights reserved.
               </Text>
             </View>
             <DeleteDish

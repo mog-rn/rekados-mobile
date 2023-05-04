@@ -21,7 +21,7 @@ const CreateEditSplashScreen: React.FC<TypedProps> = ({ message, isVisible}) => 
             <Image
               style={tw`w-[10rem] h-[3rem]`}
               resizeMode="contain"
-              source={require('../../assets/images/favicon2.png')}
+              source={require('../../assets/images/recipe-official.png')}
             />
           </View>
           <Text style={[tw`text-base text-[#676767] dark:text-neutral-400 -mt-1 mr-1`, fonts.fontPoppinsLight]}>Your daily recipe at a glance</Text>

@@ -52,7 +52,7 @@ const NavBar: React.FC<NavBarTypes> = ({ user }) => {
           <Image
             style={tw`w-[8rem] h-[2rem]`}
             resizeMode="contain"
-            source={require('../assets/images/rekados-official.png')}
+            source={require('../assets/images/recipe-official.png')}
           />
         </View>
         <View style={tw`flex-1 flex-row items-center justify-end w-[5rem]`}>
